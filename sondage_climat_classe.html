@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sondage — Climat de classe</title>
+<style>
+  :root {
+    --ink: #1b2430;
+    --paper: #f5f6f4;
+    --card: #ffffff;
+    --accent: #3b6ea5;
+    --accent-soft: #e8eff7;
+    --line: #dcdee1;
+    --danger: #b3452c;
+    --resource: #f0f4f0;
+    --resource-border: #c9d8c9;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    line-height: 1.55;
+    padding: 32px 16px 64px;
+  }
+  .wrap { max-width: 640px; margin: 0 auto; }
+  header { margin-bottom: 28px; }
+  .eyebrow {
+    font-size: 13px;
+    color: var(--accent);
+    font-weight: 600;
+    margin: 0 0 6px;
+  }
+  h1 {
+    font-size: 25px;
+    margin: 0 0 10px;
+    letter-spacing: -0.01em;
+  }
+  .intro { color: #4b5563; font-size: 15px; margin: 0; }
+
+  form {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 28px 24px;
+  }
+
+  fieldset {
+    border: none;
+    padding: 0;
+    margin: 0 0 26px;
+  }
+  fieldset:last-of-type { margin-bottom: 0; }
+
+  legend, label.field-label {
+    font-weight: 600;
+    font-size: 15px;
+    margin-bottom: 10px;
+    display: block;
+    padding: 0;
+  }
+
+  .required::after {
+    content: " *";
+    color: var(--danger);
+  }
+
+  .options { display: flex; flex-direction: column; gap: 8px; }
+  .option {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    border: 1px solid var(--line);
+    border-radius: 7px;
+    cursor: pointer;
+    transition: border-color 0.15s, background 0.15s;
+  }
+  .option:hover { border-color: var(--accent); background: var(--accent-soft); }
+  .option input { accent-color: var(--accent); width: 16px; height: 16px; }
+  .option span { font-size: 14.5px; }
+
+  textarea {
+    width: 100%;
+    font-family: inherit;
+    font-size: 14.5px;
+    padding: 10px 12px;
+    border: 1px solid var(--line);
+    border-radius: 7px;
+    background: #fff;
+    color: var(--ink);
+    resize: vertical;
+    min-height: 90px;
+  }
+  textarea:focus {
+    outline: 2px solid var(--accent);
+    outline-offset: 1px;
+    border-color: var(--accent);
+  }
+
+  .hint { font-size: 13px; color: #6b7280; margin-top: 6px; }
+
+  button[type="submit"] {
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    font-size: 15px;
+    font-weight: 600;
+    padding: 13px 22px;
+    border-radius: 7px;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 6px;
+  }
+  button[type="submit"]:hover { background: #2f5a87; }
+  button[type="submit"]:disabled { background: #9ca3af; cursor: not-allowed; }
+
+  #status {
+    margin-top: 16px;
+    padding: 12px 14px;
+    border-radius: 7px;
+    font-size: 14px;
+    display: none;
+  }
+  #status.ok { display: block; background: var(--accent-soft); color: #1f3a57; border: 1px solid #b9cfe6; }
+  #status.err { display: block; background: #fbe9e5; color: var(--danger); border: 1px solid #eec3b8; }
+
+  .resources {
+    margin-top: 22px;
+    padding: 16px 18px;
+    background: var(--resource);
+    border: 1px solid var(--resource-border);
+    border-radius: 9px;
+    font-size: 13.5px;
+    color: #3a4a3a;
+  }
+  .resources strong { display: block; margin-bottom: 6px; color: #2b3a2b; }
+  .resources ul { margin: 0; padding-left: 18px; }
+  .resources li { margin-bottom: 3px; }
+
+  .botcheck { display: none; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <p class="eyebrow">Sondage anonyme</p>
+    <h1>Comment te sens-tu dans cette classe ?</h1>
+    <p class="intro">Ce sondage est totalement anonyme — aucune réponse ne peut être reliée à toi. Réponds honnêtement, ça m'aide à améliorer l'ambiance du groupe.</p>
+  </header>
+
+  <form id="survey-form">
+    <!-- 🔑 Remplace par ta clé Web3Forms -->
+    <input type="hidden" name="access_key" value="COLLE_TA_CLE_ICI">
+    <input type="hidden" name="subject" value="Nouvelle réponse — climat de classe">
+    <input type="hidden" name="from_name" value="Sondage climat de classe">
+    <input type="checkbox" name="botcheck" class="botcheck" tabindex="-1" autocomplete="off">
+
+    <fieldset>
+      <legend class="required">De manière générale, comment te sens-tu dans cette classe ?</legend>
+      <div class="options">
+        <label class="option"><input type="radio" name="ressenti_general" value="Très bien" required><span>Très bien</span></label>
+        <label class="option"><input type="radio" name="ressenti_general" value="Bien"><span>Bien</span></label>
+        <label class="option"><input type="radio" name="ressenti_general" value="Neutre"><span>Neutre</span></label>
+        <label class="option"><input type="radio" name="ressenti_general" value="Pas très bien"><span>Pas très bien</span></label>
+        <label class="option"><input type="radio" name="ressenti_general" value="Mal"><span>Mal</span></label>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend class="required">Te sens-tu à l'aise pour parler ou poser des questions devant la classe ?</legend>
+      <div class="options">
+        <label class="option"><input type="radio" name="aise_parole" value="Oui, toujours" required><span>Oui, toujours</span></label>
+        <label class="option"><input type="radio" name="aise_parole" value="La plupart du temps"><span>La plupart du temps</span></label>
+        <label class="option"><input type="radio" name="aise_parole" value="Rarement"><span>Rarement</span></label>
+        <label class="option"><input type="radio" name="aise_parole" value="Jamais"><span>Jamais</span></label>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend class="required">As-tu déjà été témoin de moqueries, d'exclusion ou de tensions dans cette classe ?</legend>
+      <div class="options">
+        <label class="option"><input type="radio" name="temoin_tensions" value="Non, jamais" required><span>Non, jamais</span></label>
+        <label class="option"><input type="radio" name="temoin_tensions" value="Rarement"><span>Rarement</span></label>
+        <label class="option"><input type="radio" name="temoin_tensions" value="Assez souvent"><span>Assez souvent</span></label>
+        <label class="option"><input type="radio" name="temoin_tensions" value="Je préfère ne pas répondre"><span>Je préfère ne pas répondre</span></label>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend class="required">Sens-tu que tu peux parler à un adulte de l'établissement si besoin ?</legend>
+      <div class="options">
+        <label class="option"><input type="radio" name="adulte_ressource" value="Oui, facilement" required><span>Oui, facilement</span></label>
+        <label class="option"><input type="radio" name="adulte_ressource" value="Oui, mais difficilement"><span>Oui, mais difficilement</span></label>
+        <label class="option"><input type="radio" name="adulte_ressource" value="Non"><span>Non</span></label>
+        <label class="option"><input type="radio" name="adulte_ressource" value="Je ne sais pas"><span>Je ne sais pas</span></label>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <label class="field-label" for="suggestion">Qu'est-ce qui améliorerait l'ambiance de la classe, selon toi ?</label>
+      <textarea id="suggestion" name="suggestion" placeholder="Écris librement ici..."></textarea>
+      <p class="hint">Facultatif.</p>
+    </fieldset>
+
+    <button type="submit" id="submit-btn">Envoyer ma réponse</button>
+    <div id="status"></div>
+
+    <div class="resources">
+      <strong>Si tu traverses une situation difficile</strong>
+      Tu peux en parler, en toute confidentialité, à la vie scolaire, au CPE ou à l'infirmière de l'établissement. Tu peux aussi contacter :
+      <ul>
+        <li><strong>3018</strong> — harcèlement et cyberharcèlement (gratuit, anonyme)</li>
+        <li><strong>3114</strong> — numéro national de prévention du suicide (24h/24)</li>
+        <li><strong>119</strong> — Allô Enfance en Danger</li>
+      </ul>
+    </div>
+  </form>
+</div>
+
+<script>
+const form = document.getElementById('survey-form');
+const status = document.getElementById('status');
+const btn = document.getElementById('submit-btn');
+
+form.addEventListener('submit', async function (e) {
+  e.preventDefault();
+  btn.disabled = true;
+  btn.textContent = "Envoi en cours...";
+  status.style.display = 'none';
+
+  const formData = new FormData(form);
+  const json = {};
+  formData.forEach((value, key) => {
+    if (json[key] !== undefined) {
+      if (!Array.isArray(json[key])) json[key] = [json[key]];
+      json[key].push(value);
+    } else {
+      json[key] = value;
+    }
+  });
+
+  try {
+    const res = await fetch("https://api.web3forms.com/submit", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", Accept: "application/json" },
+      body: JSON.stringify(json)
+    });
+    const result = await res.json();
+
+    if (result.success) {
+      status.className = 'ok';
+      status.textContent = "Merci, ta réponse a bien été envoyée !";
+      form.reset();
+      btn.textContent = "Réponse envoyée ✓";
+    } else {
+      throw new Error(result.message || "Erreur inconnue");
+    }
+  } catch (err) {
+    status.className = 'err';
+    status.textContent = "Une erreur est survenue. Réessaie dans un instant.";
+    btn.disabled = false;
+    btn.textContent = "Envoyer ma réponse";
+  }
+});
+</script>
+</body>
+</html>
